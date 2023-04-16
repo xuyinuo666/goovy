@@ -1,0 +1,76 @@
+server:
+  port: 8001
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  application:
+    name: go-gateway
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 119.3.75.204:8848
+        namespace: dev
+        username: nacos
+        password: nacos
+    gateway:
+      routes: #配置路由路径
+        - id: user
+          uri: lb://go-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
+        - id: admin
+          uri: lb://go-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+#        - id: order
+#          uri: lb://go-order
+#          predicates:
+#            - Path=/order/**
+#          filters:
+#            - StripPrefix=1
+        - id: oauth2
+          uri: lb://go-oauth2
+          predicates:
+            - Path=/oauth/**
+          filters:
+            - StripPrefix=1
+#        - id: order-service
+#          uri: lb://micro-knife4j-order
+#          predicates:
+#            - Path=/order-service/**
+#          filters:
+#            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+  redis:
+    database: 0
+    port: 6379
+    host: 119.3.75.204
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'lb://oauth2/rsa/publicKey' # 获取公钥
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger/**"
+      - "/*/v2/api-docs"
+      - "/*/*.js"
+      - "/*/*.css"
+      - "/*/*.png"
+      - "/*/*.ico"
+      - "/webjars/**"
+      - "/actuator/**"
+      - "/swagger-ui.html"
+      - "/oauth/*"

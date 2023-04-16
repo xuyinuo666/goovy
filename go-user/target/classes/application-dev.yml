@@ -1,0 +1,39 @@
+server:
+  port: 8003
+gateway:
+  service:
+    name: go-gateway
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  application:
+    name: go-user
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 119.3.75.204:8848
+        namespace: dev
+        username: nacos
+        password: nacos
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+  redis:
+    database: 0
+    port: 6379
+    host: 119.3.75.204
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Aa112211
+    url: jdbc:mysql://119.3.75.204:3306/go-project
+#配置日志  打印sql语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
+

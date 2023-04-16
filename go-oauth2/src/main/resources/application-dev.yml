@@ -1,0 +1,39 @@
+server:
+  port: 8002
+gateway:
+  service:
+    name: go-gateway
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  application:
+    name: go-oauth2
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        server-addr: 119.3.75.204:8848
+        namespace: dev
+        username: nacos
+        password: nacos
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+  redis:
+    database: 0
+    port: 6379
+    host: 119.3.75.204
+auth:
+  token:
+    alias: jwt
+    jwtFileName: jwt.jks
+    jwtPassword: 123456789
+  white-list:
+    - "/rsa/publicKey" # 获取公钥
+    - "/oauth/token" # 获取公钥
+    - "/*/**" # 获取公钥
+    - "/*/*/**" # 获取公钥
+    - "/**" # 获取公钥
+    - "/auth/oauth/token"
+
