@@ -37,7 +37,7 @@ spring:
         - id: oauth2
           uri: lb://go-oauth2
           predicates:
-            - Path=/oauth/**
+            - Path=/auth/**
           filters:
             - StripPrefix=1
 #        - id: order-service
@@ -58,7 +58,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: 'lb://oauth2/rsa/publicKey' # 获取公钥
+          jwk-set-uri: 'http://localhost:8002/rsa/publicKey' # 获取公钥
 secure:
   ignore:
     urls: #配置白名单路径
@@ -74,3 +74,6 @@ secure:
       - "/actuator/**"
       - "/swagger-ui.html"
       - "/oauth/*"
+      - "/oauth/*/**"
+      - "/auth/*"
+      - "/auth/*/**"

@@ -47,8 +47,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         // 客户端访问方式
 
         clients.inMemory()
-            .withClient("client_id")//客户端ID
-            .secret( passwordEncoder.encode("xugaowei"))//（受信任的客户端需要）客户端机密，如果有的话。
+            .withClient("client_app")//客户端ID
+            .secret( passwordEncoder.encode("123456"))//（受信任的客户端需要）客户端机密，如果有的话。
             .authorizedGrantTypes("password", "refresh_token", "authorization_code", "client_credentials")//授权客户端使用的授权类型。默认值为空。
             .accessTokenValiditySeconds(3600)
             .refreshTokenValiditySeconds(3600)
@@ -71,8 +71,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients()
-                .checkTokenAccess("permitAll()");// 校验token
+        security.allowFormAuthenticationForClients();
+//                .checkTokenAccess("permitAll()");// 校验token
     }
 
     @Bean

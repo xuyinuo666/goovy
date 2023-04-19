@@ -29,6 +29,7 @@ spring:
     username: root
     password: Aa112211
     url: jdbc:mysql://119.3.75.204:3306/go-project
+    type: com.alibaba.druid.pool.DruidDataSource
 #配置日志  打印sql语句
 mybatis-plus:
   configuration:
